@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" version="1.1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+ <rect width="200" height="200" fill="#fff"/>
+ <g fill="none" stroke="#000" stroke-width="4">
+  <path d="m20 20h160v160h-160z"/>
+  <path d="m40 40h120v120h-120z"/>
+  <path d="m60 60h80v80h-80z"/>
+ </g>
+ <text x="100" y="170" fill="#00a0e4" font-family="Arial" font-size="14" text-anchor="middle">Art Nebula GCash</text>
+</svg>

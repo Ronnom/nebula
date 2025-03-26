@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art Nebula - Art Supplies Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #3a506b;
+            --secondary-color: #ff6b6b;
+            --accent-color: #6fffe9;
+            --light-color: #f8f9fa;
+            --dark-color: #1f2833;
+            --text-color: #333;
+            --text-light: #f8f9fa;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            background-color: #f8f9fa;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .flex-row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        /* Navigation */
+        .nav {
+            background-color: white;
+            box-shadow: var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-menu {
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        .nav-brand a {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            letter-spacing: 1px;
+        }
+
+        .nav-items {
+            display: flex;
+            margin: 0;
+        }
+
+        .nav-link {
+            padding: 0 15px;
+        }
+
+        .nav-link a {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--dark-color);
+            transition: var(--transition);
+        }
+
+        .nav-link a:hover {
+            color: var(--secondary-color);
+        }
+
+        .icons-items {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .icons-items a {
+            font-size: 1.3rem;
+            color: var(--dark-color);
+            transition: var(--transition);
+        }
+
+        .icons-items a:hover {
+            color: var(--secondary-color);
+        }
+
+        .toggle-collapse {
+            display: none;
+        }
+
+        /* Site Title */
+        .site-title {
+            width: 100%;
+            height: 80vh;
+            position: relative;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('assets/paint.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+
+        .site-background {
+            padding: 20px;
+            border-radius: 10px;    
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .site-background h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+
+        .site-background h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: var(--transition);
+            box-shadow: var(--box-shadow);
+        }
+
+        .btn:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        /* Categories Section */
+        .categories {
+            padding: 60px 0;
+        }
+
+        .heading {
+            text-align: center;
+            position: relative;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+        }
+
+        .heading::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            border-radius: 2px;
+        }
+
+        .category-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .category-filter {
+            padding: 8px 16px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .category-filter:hover, .category-filter.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .box-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .box {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .box img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .box-content {
+            padding: 20px;
+        }
+
+        .box h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .box p {
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            color: #666;
+        }
+
+        .box .category-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            background-color: var(--accent-color);
+            color: var(--dark-color);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            margin-bottom: 15px;
+        }
+
+        .box .btn {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--dark-color);
+            color: var(--light-color);
+            padding: 60px 0 20px;
+        }
+
+        .footer .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .footer h2 {
+            position: relative;
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+        }
+
+        .footer h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--secondary-color);
+            border-radius: 2px;
+        }
+
+        .footer p {
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .learn-more p {
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .learn-more p:hover {
+            color: var(--secondary-color);
+            transform: translateX(5px);
+        }
+
+        .follow {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .follow .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .follow a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .follow a:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-5px);
+        }
+
+        .rights {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            justify-content: center;
+            text-align: center;
+        }
+
+        .rights h4 {
+            font-weight: 400;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 991px) {
+            .nav-menu {
+                flex-direction: column;
+                position: relative;
+            }
+
+            .toggle-collapse {
+                display: block;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                cursor: pointer;
+            }
+
+            .toggle-collapse i {
+                font-size: 1.5rem;
+            }
+
+            .collapse {
+                height: 0;
+                overflow: hidden;
+                transition: var(--transition);
+            }
+
+            .collapse.show {
+                height: auto;
+            }
+
+            .nav-items {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px 0;
+                width: 100%;
+            }
+
+            .nav-link {
+                padding: 10px 0;
+            }
+
+            .icons-items {
+                margin: 20px 0;
+                justify-content: center;
+            }
+
+            .site-background h1 {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .site-background h1 {
+                font-size: 2.5rem;
+            }
+            
+            .footer .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <div class="nav-menu flex-row">
+            <div class="nav-brand">
+                <a href="index_customers.html">Art Nebula</a>
+            </div>
+            <div class="toggle-collapse">
+                <div class="toggle-icons">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+            <div class="collapse">
+                <ul class="nav-items">
+                    <li class="nav-link">
+                        <a href="index_customers.html">Home</a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="category.php">Category</a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="#about">About Us</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="icons-items">
+                <a href="cart.php" title="Shopping Cart"><i class="fa-solid fa-cart-shopping"></i></a>
+                <a href="profile.php" title="User Account"><i class="fa-solid fa-user"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <section class="site-title">
+            <div class="site-background">
+                <h3>Discover Quality Art Supplies</h3>
+                <h1>Art Nebula</h1>
+                <button class="btn" onclick="location.href='guest/guest_category.php'">Shop now</button>
+            </div>
+        </section>
+
+        <section class="categories" id="categories">
+            <div class="container">
+                <h1 class="heading">Popular Category</h1>
+                
+                <div class="category-filters">
+                    <div class="category-filter active" data-filter="all">All Categories</div>
+                    <div class="category-filter" data-filter="paint">Paints</div>
+                    <div class="category-filter" data-filter="brush">Brushes</div>
+                    <div class="category-filter" data-filter="paper">Paper & Canvas</div>
+                    <div class="category-filter" data-filter="accessory">Accessories</div>
+                </div>
+                
+                <div class="box-container">
+                    <div class="box" data-category="paint">
+                        <img src="assets/Himi.jpg" alt="Himi Gouache Paint Set">
+                        <div class="box-content">
+                            <span class="category-tag">Paints</span>
+                            <h3>HIMI MIYA GOUACHE</h3>
+                            <p>Premium quality gouache paint set with vibrant colors perfect for illustrations and art projects.</p>
+                            <a href="category.php?id=1" class="btn">Shop now</a>
+                        </div>
+                    </div>
+                    
+                    <div class="box" data-category="paint">
+                        <img src="assets/kremer watercolor.jpg" alt="Watercolor Paint Set">
+                        <div class="box-content">
+                            <span class="category-tag">Paints</span>
+                            <h3>WATERCOLOR PAINTS</h3>
+                            <p>High-quality watercolor paints with excellent pigmentation and blending capabilities.</p>
+                            <a href="category.php?id=1" class="btn">Shop now</a>
+                        </div>
+                    </div>
+                    
+                    <div class="box" data-category="brush">
+                        <img src="assets/paint.jpg" alt="Artist Brushes">
+                        <div class="box-content">
+                            <span class="category-tag">Brushes</span>
+                            <h3>ARTIST BRUSHES</h3>
+                            <p>Professional-grade brushes for various painting techniques and mediums.</p>
+                            <a href="category.php?id=2" class="btn">Shop now</a>
+                        </div>
+                    </div>
+                    
+                    <div class="box" data-category="paper">
+                        <img src="assets/sk.jpg" alt="Sketchbooks">
+                        <div class="box-content">
+                            <span class="category-tag">Paper & Canvas</span>
+                            <h3>SKETCHBOOKS</h3>
+                            <p>High-quality sketchbooks with acid-free paper suitable for various drawing techniques.</p>
+                            <a href="category.php?id=3" class="btn">Shop now</a>
+                        </div>
+                    </div>
+                    
+                    <div class="box" data-category="accessory">
+                        <img src="assets/images.jpg" alt="Art Palettes">
+                        <div class="box-content">
+                            <span class="category-tag">Accessories</span>
+                            <h3>ARTIST PALETTES</h3>
+                            <p>Durable mixing palettes for paints with multiple compartments and ergonomic design.</p>
+                            <a href="category.php?id=4" class="btn">Shop now</a>
+                        </div>
+                    </div>
+                    
+                    <div class="box" data-category="accessory">
+                        <img src="assets/easel.jpg" alt="Artist Easels">
+                        <div class="box-content">
+                            <span class="category-tag">Accessories</span>
+                            <h3>PORTABLE EASELS</h3>
+                            <p>Lightweight and portable easels for art students and professionals, easy to set up anywhere.</p>
+                            <a href="category.php?id=4" class="btn">Shop now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="about-us">
+                <h2>About Us</h2>
+                <p>Art Nebula is dedicated to providing high-quality art supplies to artists of all levels. We believe in the power of creativity and aim to support artists in their journey.</p>
+            </div>
+            
+            <div class="learn-more">
+                <h2>Learn More</h2>
+                <p>Shipping & Returns</p>
+                <p>Privacy Policy</p>
+                <p>Terms & Conditions</p>
+                <p>FAQs</p>
+            </div>
+            
+            <div class="follow">
+                <h2>Follow Us</h2>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="rights flex-row">
+            <h4>Copyright ©2025 All rights reserved | Art Nebula</h4>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle navigation menu for mobile
+        const toggleCollapse = document.querySelector('.toggle-collapse');
+        const navCollapse = document.querySelector('.collapse');
+        
+        if (toggleCollapse) {
+            toggleCollapse.addEventListener('click', function() {
+                navCollapse.classList.toggle('show');
+            });
+        }
+        
+        // Category filter functionality
+        const filterBtns = document.querySelectorAll('.category-filter');
+        const boxes = document.querySelectorAll('.box');
+        
+        if (filterBtns.length > 0 && boxes.length > 0) {
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterBtns.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to current button
+                    this.classList.add('active');
+                    
+                    const filter = this.getAttribute('data-filter');
+                    
+                    boxes.forEach(box => {
+                        if (filter === 'all' || box.getAttribute('data-category') === filter) {
+                            box.style.display = 'block';
+                        } else {
+                            box.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        }
+    </script>
+</body>
+</html>
